@@ -2,14 +2,8 @@ package exe03;
 
 public class MVCPatternDemo {
 	public static void main(String[] args) {
-
-		// fetch student record based on his roll no from the database
-		Student model = retriveStudentFromDatabase();
-
-		// Create a view : to write student details on console
-		StudentView view = new StudentView();
-
-		StudentController controller = new StudentController(model, view);
+		ControllerFactory controller;
+		controller = ControllerFactory.getController(retriveStudentFromDatabase());
 
 		controller.updateView();
 
@@ -17,10 +11,21 @@ public class MVCPatternDemo {
 		controller.setStudentName("John");
 
 		controller.updateView();
+		
+		controller = ControllerFactory.getController(retriveStarStudentFromDB());
+		
+		controller.updateView();
 	}
 
 	private static Student retriveStudentFromDatabase() {
 		Student student = new Student();
+		student.setName("Robert");
+		student.setRollNo("10");
+		return student;
+	}
+	
+	private static StarStudent retriveStarStudentFromDB(){
+		StarStudent student = new StarStudent();
 		student.setName("Robert");
 		student.setRollNo("10");
 		return student;
